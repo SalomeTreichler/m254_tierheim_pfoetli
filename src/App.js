@@ -15,7 +15,7 @@ function App() {
             <Routes>
                 <Route path={""} element={<Home/>}/>
                 <Route path="/admin" element={<AdminView/>}/>
-                <Route path="/visitors" element={<VisitorView/>}/>
+                <Route path="/visitor" element={<VisitorView/>}/>
             </Routes>
         </BrowserRouter>
     );
