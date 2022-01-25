@@ -1,24 +1,23 @@
-import React, {Fragment} from "react";
+import React from "react";
 
 import AdminView from "./views/AdminView";
 import VisitorView from "./views/VisitorView";
 import {
     BrowserRouter,
     Routes,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
+import Home from "./views/Home";
 
 function App() {
     return (
-        <Fragment>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/admin" element={<AdminView/>}/>
-                    <Route path="/visitors" element={<VisitorView/>}/>
-                </Routes>
-            </BrowserRouter>
-        </Fragment>
+        <BrowserRouter>
+            <Routes>
+                <Route path={""} element={<Home/>}/>
+                <Route path="/admin" element={<AdminView/>}/>
+                <Route path="/visitors" element={<VisitorView/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
 
