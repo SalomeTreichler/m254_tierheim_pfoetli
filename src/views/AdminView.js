@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import Axios from 'axios';
+import { getAnimals } from '../service/apicalls';
 
 const AdminView=()=> {
     const [animalsList, setAnimalList] = useState([]);
 
     useEffect(() => {
-        Axios.get("http://localhost:3002/api/get").then((res)=>{
-            setAnimalList(res.data);
+        getAnimals((res) => {
+            setAnimalList(res)
+        }, (err) => {
+            console.error(err)
         });
-    }, []);
+    }, [animalsList])
 
-    console.log(animalsList);
     return (
         <h1>Hi Admin</h1>
     );
