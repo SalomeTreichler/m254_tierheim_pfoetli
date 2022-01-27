@@ -10,7 +10,7 @@ const AdminView=()=> {
         }, (err) => {
             console.error(err)
         });
-    }, [animalsList])
+    }, [setAnimalList])
 
     return (
         <h1>Hi Admin</h1>

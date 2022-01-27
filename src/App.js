@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 
 import AdminView from "./views/AdminView";
 import VisitorView from "./views/VisitorView";
@@ -6,7 +6,6 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Link
 } from "react-router-dom";
 
 function App() {
