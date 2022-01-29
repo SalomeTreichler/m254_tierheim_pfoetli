@@ -3,10 +3,11 @@ import axios from 'axios';
 const url = 'http://localhost:3002/api'
 
 export function getAnimals(callback, errorCallback) {
-    axios.get(url + '/get')
+    axios.get(url + '/animals')
         .then(res => {
             if (callback != null) {
                 callback(res);
+                console.log(res)
             }
         })
         .catch(err => {
@@ -16,8 +17,40 @@ export function getAnimals(callback, errorCallback) {
         })
 }
 
+export function addAnimal(animal) {
+    axios.post(url + '/animal', {
+        name: animal.name,
+        species: animal.species,
+        breed: animal.breed,
+        comment: animal.comment,
+        status: animal.status
+    })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
+
+export function updateAnimal(id, animal) {
+    axios.post(url + '/animal/' + id, {
+        name: animal.name,
+        species: animal.species,
+        breed: animal.breed,
+        comment: animal.comment,
+        status: animal.status
+    })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+}
+
 export function getAnimalById(id, callback, errorCallback) {
-    axios.get(url + '/getById/' + id)
+    axios.get(url + '/animals/' + id)
         .then(res => {
             if (callback != null) {
                 callback(res);

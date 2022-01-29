@@ -9,7 +9,7 @@ app.use(express.json())
 
 // Route to get all animals
 app.get("/api/animals", (req, res) => {
-    db.query("SELECT * FROM animal", (err, result) => {
+    db.query("SELECT a.id, a.name, a.species, a.breed, a.arrival, a.comment, s.status FROM animal a LEFT JOIN status s on a.statusId = s.id", (err, result) => {
         if (err) {
             console.error(err)
         }
@@ -20,7 +20,7 @@ app.get("/api/animals", (req, res) => {
 // Route to get an animal by id
 app.get("/api/animals/:id", (req, res) => {
     const id = req.params.id;
-    db.query("SELECT * FROM animal WHERE id = ?", id,
+    db.query("SELECT a.id, a.name, a.species, a.breed, a.arrival, a.comment, s.status FROM animal a LEFT JOIN status s on a.statusId = s.id WHERE a.id = ?", id,
         (err, result) => {
             if (err) {
                 console.error(err)
@@ -44,7 +44,6 @@ app.get("/api/animals/adoption", (req, res) => {
 // Route to insert a new animal
 app.post("/api/animal", (req, res) => {
     const data = req.body;
-
     db.query("INSERT INTO animal (name, species, breed, comment, statusId) VALUES (?,?,?,?, (SELECT id from status WHERE status = ?))", [data.name, data.species, data.breed, data.comment, data.status], (err, result) => {
         if (err) {
             console.error(err)

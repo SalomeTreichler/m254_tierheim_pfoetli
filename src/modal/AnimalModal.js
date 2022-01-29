@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, MenuItem, withStyles} from "@material-ui/core";
+import {addAnimal, updateAnimal} from "../service/apicalls";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -54,7 +55,7 @@ const statuses = [
     },
     {
         value: 'CONTACT_OWNER',
-        label: 'Wartet auf Untersuchung',
+        label: 'Wird abgeholt',
     },
     {
         value: 'TO_BE_ADOPTED',
@@ -66,7 +67,7 @@ const statuses = [
     },
     {
         value: 'PICKED_UP',
-        label: 'Wird eingeschläfert',
+        label: 'Abgeholt',
     },
     {
         value: 'ADOPTED',
@@ -79,20 +80,32 @@ const statuses = [
 ];
 
 export default function AnimalModal(props) {
-    const [open, setOpen] = React.useState(false);
     const [name, setName] = React.useState("");
     const [species, setSpecies] = React.useState("");
     const [breed, setBreed] = React.useState("");
     const [status, setStatus] = React.useState("");
     const [comment, setComment] = React.useState("");
+    const data = props.data;
     const classes = useStyles();
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    const saveData = (data) => {
+        if (props.edit) {
+            updateAnimal(props.data.id, data, (res) => {
+                console.log(res)
+            }, (err) => {
+                console.error(err)
+            });
+        } else {
+            addAnimal(data, (res) => {
+                console.log(res)
+            }, (err) => {
+                console.error(err)
+            });
+        }
+    }
 
     const handleClose = () => {
-        setOpen(false);
+        props.handleClose();
         setName("");
         setSpecies("");
         setBreed("");
@@ -101,22 +114,27 @@ export default function AnimalModal(props) {
     };
 
     const handleSave = () => {
-        //insert calling service to save in DB here
-
-        setOpen(false);
+        // Insert calling service to save in DB here
+        saveData({ name, species, breed, comment, status })
+        handleClose();
         setName("");
         setSpecies("");
         setBreed("");
-        setStatus("");
         setComment("");
+        setStatus("");
     }
+
+    useEffect(() => {
+        setName(data ? data.name : "");
+        setSpecies(data ? data.species : "");
+        setBreed(data ? data.breed : "");
+        setComment(data ? data.comment : "");
+        setStatus(data ? data.status : "");
+    }, [data])
 
     return (
         <div>
-            <Button variant={"contained"} className={classes.button} onClick={handleClickOpen}>
-                TIER ERFASSEN
-            </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={props.isOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Tier erfassen</DialogTitle>
                 <DialogContent style={{width: "500px", height: "400px"}}>
                     <Grid container spacing={3}>
