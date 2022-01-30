@@ -29,18 +29,6 @@ app.get("/api/animals/:id", (req, res) => {
         });
 });
 
-// Route to get animals which are up for adoption
-app.get("/api/animals/adoption", (req, res) => {
-    db.query("SELECT * FROM animal WHERE statusId = 12",
-        (err, result) => {
-            if (err) {
-                console.error(err)
-            }
-            res.send(result)
-        });
-});
-
-
 // Route to insert a new animal
 app.post("/api/animal", (req, res) => {
     const data = req.body;

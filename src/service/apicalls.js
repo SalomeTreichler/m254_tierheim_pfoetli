@@ -48,17 +48,3 @@ export function updateAnimal(id, animal) {
             console.error(err)
         })
 }
-
-export function getAnimalById(id, callback, errorCallback) {
-    axios.get(url + '/animals/' + id)
-        .then(res => {
-            if (callback != null) {
-                callback(res);
-            }
-        })
-        .catch(err => {
-            if(errorCallback != null) {
-                errorCallback(err);
-            }
-        })
-}
