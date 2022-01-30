@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Grid, Link, makeStyles} from "@material-ui/core";
 import {startVisitorTask} from "../service/camunda_api_calls";
+import {getAnimals} from "../service/apicalls";
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -39,7 +40,15 @@ const Home=()=> {
             <Grid item xs={6}>
             <Button variant="contained" className={classes.button}>
                 <Link href={"/visitor"} underline={'none'} className={classes.link} onClick={() => {
-                    startVisitorTask(true);
+                    startVisitorTask(() => {
+                        getAnimals((res) => {
+                             return res.data.filter((animal) => {
+                                return animal.status === 'TO_BE_ADOPTED'
+                            }).length > 0;
+                        }, (err) => {
+                            console.error(err)
+                        });
+                    });
                 }}>Ich bin ein Besucher</Link>
             </Button>
             </Grid>
