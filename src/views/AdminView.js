@@ -160,9 +160,10 @@ const AdminView = () => {
     };
 
     const handleClick = (animal) => {
-        // Do handle Click stuff
+        console.log("handleclick animal:", animal);
         setSelectedAnimal(animal)
         setEdit(true)
+        handleOpen()
     };
 
     const handleChangePage = (event, newPage) => {
@@ -185,6 +186,7 @@ const AdminView = () => {
 
     const handleClose = () => {
         setOpenAnimalModal(false);
+        setSelectedAnimal(null);
         setEdit(false);
     }
 
@@ -245,7 +247,6 @@ const AdminView = () => {
                                                     hover
                                                     onClick={() => {
                                                         handleClick(row)
-                                                        handleOpen()
                                                     }}
                                                     tabIndex={-1}
                                                     key={row.name}

@@ -7,7 +7,6 @@ export function getAnimals(callback, errorCallback) {
         .then(res => {
             if (callback != null) {
                 callback(res);
-                console.log(res)
             }
         })
         .catch(err => {

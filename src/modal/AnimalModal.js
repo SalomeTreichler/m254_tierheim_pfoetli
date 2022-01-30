@@ -80,9 +80,8 @@ export default function AnimalModal(props) {
     const [name, setName] = React.useState("");
     const [species, setSpecies] = React.useState("");
     const [breed, setBreed] = React.useState("");
-    const [status, setStatus] = React.useState(props.edit ? "" :  "TO_BE_EXAMINED");
+    const [status, setStatus] = React.useState("TO_BE_EXAMINED");
     const [comment, setComment] = React.useState("");
-    let data = props.data;
     const classes = useStyles();
 
     const saveData = (data) => {
@@ -106,12 +105,11 @@ export default function AnimalModal(props) {
         setName("");
         setSpecies("");
         setBreed("");
-        setStatus("");
+        setStatus("TO_BE_EXAMINED");
         setComment("");
     };
 
     const handleSave = () => {
-        // Insert calling service to save in DB here
         saveData({ name, species, breed, comment, status })
 
         switch (status) {
@@ -140,20 +138,17 @@ export default function AnimalModal(props) {
         }
 
         handleClose();
-        setName("");
-        setSpecies("");
-        setBreed("");
-        setComment("");
-        setStatus("");
     }
 
     useEffect(() => {
-        setName(data ? data.name : "");
-        setSpecies(data ? data.species : "");
-        setBreed(data ? data.breed : "");
-        setComment(data ? data.comment : "");
-        setStatus(data ? data.status : "TO_BE_EXAMINED");
-    }, [data])
+        if(props.data) {
+            setName(props.data.name);
+            setSpecies(props.data.species);
+            setBreed(props.data.breed);
+            setStatus(props.data.status);
+            setComment(props.data.comment);
+        }
+    }, [props.data])
 
     return (
         <div>
