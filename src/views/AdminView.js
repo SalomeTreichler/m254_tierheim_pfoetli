@@ -21,6 +21,7 @@ import CallIcon from '@material-ui/icons/Call';
 import * as PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import {startAdminTask} from "../service/camunda_api_calls";
+import PhoneModal from "../modal/PhoneModal";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -121,7 +122,8 @@ CustomTableHead.propTypes = {
 const AdminView = () => {
     const classes = useStyles();
     const [animalsList, setAnimalList] = useState([]);
-    const [open, setOpen] = useState(false)
+    const [openAnimalModal, setOpenAnimalModal] = useState(false)
+    const [openPhoneModal, setOpenPhoneModal] = useState(false)
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('calories');
     const [page, setPage] = useState(0);
@@ -179,17 +181,21 @@ const AdminView = () => {
     // Animal Modal
     const handleOpen = () => {
         startAdminTask();
-        setOpen(true);
+        setOpenAnimalModal(true);
     }
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenAnimalModal(false);
         setEdit(false);
     }
 
     const handleCallOwner = (event) => {
         event.stopPropagation()
-        // handle call owner
+        setOpenPhoneModal(true)
+    }
+
+    const handleClosePhoneModal = () => {
+        setOpenPhoneModal(false);
     }
 
     // UseEffects
@@ -199,7 +205,7 @@ const AdminView = () => {
         }, (err) => {
             console.error(err)
         });
-    }, [setAnimalList, open])
+    }, [setAnimalList, openAnimalModal])
 
     return (
         <Fragment>
@@ -212,7 +218,8 @@ const AdminView = () => {
             </AppBar>
             <Grid container className={classes.container}>
                 <Grid item xs={12}>
-                    <AnimalModal isOpen={open} handleClose={handleClose} data={selectedAnimal} edit={edit}/>
+                    <AnimalModal isOpen={openAnimalModal} handleClose={handleClose} data={selectedAnimal} edit={edit}/>
+                    <PhoneModal isOpen={openPhoneModal} handleClose={handleClosePhoneModal} data={selectedAnimal}/>
                     <Button variant={"contained"} className={classes.button} onClick={handleOpen}>
                         TIER ERFASSEN
                     </Button>
