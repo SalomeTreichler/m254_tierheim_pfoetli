@@ -9,9 +9,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Grid, MenuItem, withStyles} from "@material-ui/core";
 import {addAnimal, updateAnimal} from "../service/apicalls";
 import {completeTask, startAdminTask} from "../service/camunda_api_calls";
-import {wait} from "@testing-library/user-event/dist/utils";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     button: {
         backgroundColor: '#333b2e',
         color: '#99B687',
@@ -122,13 +121,11 @@ export default function AnimalModal(props) {
 
         switch (status) {
             case "TO_BE_EXAMINED":
-                console.log("case 1", status)
                 completeTask("register_animal");
                 break;
             case "CONTACT_OWNER":
             case "TO_BE_EUTHANISED":
             case "TO_BE_ADOPTED":
-                console.log(status)
                 completeTask("animal_examined", {
                     "variables": {
                         "animal_status": {

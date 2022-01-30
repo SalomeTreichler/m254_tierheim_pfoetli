@@ -20,7 +20,6 @@ import status from "../utils/status";
 import CallIcon from '@material-ui/icons/Call';
 import * as PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import {startAdminTask} from "../service/camunda_api_calls";
 import PhoneModal from "../modal/PhoneModal";
 
 const useStyles = makeStyles((theme) => ({
@@ -160,7 +159,6 @@ const AdminView = () => {
     };
 
     const handleClick = (animal) => {
-        console.log("handleclick animal:", animal);
         setSelectedAnimal(animal)
         setEdit(true)
         handleOpen()

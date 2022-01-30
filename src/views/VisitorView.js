@@ -21,7 +21,7 @@ import * as PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
 import {completeTask} from "../service/camunda_api_calls";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     container: {
         padding: '25px',
     },
