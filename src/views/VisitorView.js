@@ -19,6 +19,7 @@ import Alert from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';
 import * as PropTypes from "prop-types";
 import { useNavigate } from 'react-router-dom';
+import {completeTask} from "../service/camunda_api_calls";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -181,10 +182,10 @@ const AdminView = () => {
         }, (err) => {
             console.error(err)
         });
+        completeTask("adopt_animal");
         setTimeout(function() {
             navigate('/')
         }, 10000);
-        // add camunda call
     }
 
     // UseEffects
