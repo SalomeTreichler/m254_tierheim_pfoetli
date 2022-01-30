@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, Grid, Link, makeStyles} from "@material-ui/core";
+import {startVisitorTask} from "../service/camunda_api_calls";
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -37,7 +38,9 @@ const Home=()=> {
             </Grid>
             <Grid item xs={6}>
             <Button variant="contained" className={classes.button}>
-                <Link href={"/visitor"} underline={'none'} className={classes.link}>Ich bin ein Besucher</Link>
+                <Link href={"/"} underline={'none'} className={classes.link} onClick={() => {
+                    startVisitorTask(true);
+                }}>Ich bin ein Besucher</Link>
             </Button>
             </Grid>
         </Grid>
