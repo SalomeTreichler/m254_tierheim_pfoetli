@@ -9,6 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Grid, MenuItem, withStyles} from "@material-ui/core";
 import {addAnimal, updateAnimal} from "../service/apicalls";
 import {completeTask, startAdminTask} from "../service/camunda_api_calls";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -85,6 +86,9 @@ export default function AnimalModal(props) {
     const classes = useStyles();
 
     const saveData = (data) => {
+        if(status === "TO_BE_EXAMINED"){
+            startAdminTask();
+        }
         if (props.edit) {
             updateAnimal(props.data.id, data, (res) => {
                 console.log(res)
@@ -114,12 +118,13 @@ export default function AnimalModal(props) {
 
         switch (status) {
             case "TO_BE_EXAMINED":
+                console.log("case 1", status)
                 completeTask("register_animal");
-                startAdminTask();
                 break;
             case "CONTACT_OWNER":
             case "TO_BE_EUTHANISED":
             case "TO_BE_ADOPTED":
+                console.log(status)
                 completeTask("animal_examined", {
                     "variables": {
                         "animal_status": {

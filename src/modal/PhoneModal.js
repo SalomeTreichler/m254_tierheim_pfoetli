@@ -4,8 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
-import {Grid, MenuItem, withStyles} from "@material-ui/core";
-import {addAnimal, updateAnimal} from "../service/apicalls";
+import {Grid} from "@material-ui/core";
+import {updateAnimal} from "../service/apicalls";
 import {completeTask} from "../service/camunda_api_calls";
 import Typography from "@material-ui/core/Typography";
 
