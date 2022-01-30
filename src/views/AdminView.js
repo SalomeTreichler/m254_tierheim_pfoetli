@@ -20,6 +20,7 @@ import status from "../utils/status";
 import CallIcon from '@material-ui/icons/Call';
 import * as PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import {startAdminTask} from "../service/camunda_api_calls";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -126,7 +127,7 @@ const AdminView = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [edit, setEdit] = useState(false)
-    const [selectedAnimal, setSelectedAnimal] = useState({});
+    const [selectedAnimal, setSelectedAnimal] = useState(null);
 
     // Animal Table
     const formatDate = (dateString) => {
@@ -177,6 +178,7 @@ const AdminView = () => {
 
     // Animal Modal
     const handleOpen = () => {
+        startAdminTask();
         setOpen(true);
     }
 

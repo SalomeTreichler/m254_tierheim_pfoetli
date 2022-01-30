@@ -33,12 +33,12 @@ const Home=()=> {
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">
             <Button variant="contained" className={classes.button}>
-                <Link href={"/admin"} underline={'none'} className={classes.link}>Ich bin ein Admin</Link>
+                <Link href={"/admin"} underline={'none'} className={classes.link} >Ich bin ein Admin</Link>
             </Button>
             </Grid>
             <Grid item xs={6}>
             <Button variant="contained" className={classes.button}>
-                <Link href={"/"} underline={'none'} className={classes.link} onClick={() => {
+                <Link href={"/visitor"} underline={'none'} className={classes.link} onClick={() => {
                     startVisitorTask(true);
                 }}>Ich bin ein Besucher</Link>
             </Button>

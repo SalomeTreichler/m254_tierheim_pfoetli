@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, MenuItem, withStyles} from "@material-ui/core";
 import {addAnimal, updateAnimal} from "../service/apicalls";
+import {completeTask} from "../service/camunda_api_calls";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -55,7 +56,7 @@ const statuses = [
     },
     {
         value: 'CONTACT_OWNER',
-        label: 'Wird abgeholt',
+        label: 'Besitzer kontaktieren',
     },
     {
         value: 'TO_BE_ADOPTED',
@@ -70,10 +71,6 @@ const statuses = [
         label: 'Abgeholt',
     },
     {
-        value: 'ADOPTED',
-        label: 'Adoptiert',
-    },
-    {
         value: 'EUTHANISED',
         label: 'Eingeschläfert',
     },
@@ -83,9 +80,9 @@ export default function AnimalModal(props) {
     const [name, setName] = React.useState("");
     const [species, setSpecies] = React.useState("");
     const [breed, setBreed] = React.useState("");
-    const [status, setStatus] = React.useState("");
+    const [status, setStatus] = React.useState(props.edit ? "" :  "TO_BE_EXAMINED");
     const [comment, setComment] = React.useState("");
-    const data = props.data;
+    let data = props.data;
     const classes = useStyles();
 
     const saveData = (data) => {
@@ -116,6 +113,31 @@ export default function AnimalModal(props) {
     const handleSave = () => {
         // Insert calling service to save in DB here
         saveData({ name, species, breed, comment, status })
+
+        switch (status) {
+            case "TO_BE_EXAMINED":
+                completeTask("register_animal");
+                break;
+            case "CONTACT_OWNER":
+            case "TO_BE_EUTHANISED":
+            case "TO_BE_ADOPTED":
+                completeTask("animal_examined", {
+                    "variables": {
+                        "animal_status": {
+                            "value": status,
+                            "type": "string"
+                        }
+                    }
+                });
+                break;
+            case "PICKED_UP":
+                completeTask("animal_picked_up");
+                break;
+            case "EUTHANISED":
+                completeTask("animal_euthanised");
+                break;
+        }
+
         handleClose();
         setName("");
         setSpecies("");
@@ -129,7 +151,7 @@ export default function AnimalModal(props) {
         setSpecies(data ? data.species : "");
         setBreed(data ? data.breed : "");
         setComment(data ? data.comment : "");
-        setStatus(data ? data.status : "");
+        setStatus(data ? data.status : "TO_BE_EXAMINED");
     }, [data])
 
     return (
@@ -191,6 +213,7 @@ export default function AnimalModal(props) {
                                 id="status"
                                 select
                                 required
+                                disabled={!props.edit}
                                 margin="dense"
                                 fullWidth
                                 label="Status"
@@ -230,7 +253,7 @@ export default function AnimalModal(props) {
                         ABBRECHEN
                     </Button>
                     <Button disabled={name === "" || species === "" || status === ""} onClick={handleSave} variant={"contained"}
-                            className={classes.button}>
+                            className={classes.button} style={{marginRight: "17px"}}>
                         SPEICHERN
                     </Button>
             </DialogActions>
