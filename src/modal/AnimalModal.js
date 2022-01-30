@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, MenuItem, withStyles} from "@material-ui/core";
 import {addAnimal, updateAnimal} from "../service/apicalls";
-import {completeTask} from "../service/camunda_api_calls";
+import {completeTask, startAdminTask} from "../service/camunda_api_calls";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -117,6 +117,7 @@ export default function AnimalModal(props) {
         switch (status) {
             case "TO_BE_EXAMINED":
                 completeTask("register_animal");
+                startAdminTask();
                 break;
             case "CONTACT_OWNER":
             case "TO_BE_EUTHANISED":

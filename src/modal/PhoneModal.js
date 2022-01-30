@@ -31,6 +31,11 @@ export default function PhoneModal(props) {
                 }
             }
         });
+        updateAnimal(props.data.id, {...props.data, status: "TO_BE_PICKED_UP"}, (res) => {
+            console.log(res)
+        }, (err) => {
+            console.error(err)
+        });
     };
 
     const handleCloseNo = () => {

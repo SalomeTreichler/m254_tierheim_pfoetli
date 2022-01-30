@@ -180,7 +180,6 @@ const AdminView = () => {
 
     // Animal Modal
     const handleOpen = () => {
-        startAdminTask();
         setOpenAnimalModal(true);
     }
 
@@ -205,7 +204,7 @@ const AdminView = () => {
         }, (err) => {
             console.error(err)
         });
-    }, [setAnimalList, openAnimalModal])
+    }, [setAnimalList, openAnimalModal, openPhoneModal])
 
     return (
         <Fragment>
