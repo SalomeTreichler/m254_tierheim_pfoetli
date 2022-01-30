@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1x4eg4k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_0kigjd8">
+    <bpmn:participant id="Participant_1botzud" name="Tierheim_Besucher" processRef="Tierheim_Besucher" />
+  </bpmn:collaboration>
+  <bpmn:process id="Tierheim_Besucher" name="Tierheim_Besucher" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="animals_available" label="animals_available" type="boolean" defaultValue="false" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0zjban5</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0zjban5" sourceRef="StartEvent_1" targetRef="Gateway_1b83pdi" />
+    <bpmn:exclusiveGateway id="Gateway_1b83pdi" name="Sind Tiere zur adoption frei?">
+      <bpmn:incoming>Flow_0zjban5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ok4zd5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0hqg7e2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0ok4zd5" name="Ja" sourceRef="Gateway_1b83pdi" targetRef="Activity_03jh9ov">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${animals_available==true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_041ub7t">
+      <bpmn:incoming>Flow_0hqg7e2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0hqg7e2" name="Nein" sourceRef="Gateway_1b83pdi" targetRef="Event_041ub7t">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${animals_available==false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:manualTask id="Activity_03jh9ov" name="Tiere anschauen">
+      <bpmn:incoming>Flow_0ok4zd5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yjyp6n</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:sequenceFlow id="Flow_0yjyp6n" sourceRef="Activity_03jh9ov" targetRef="adopt_animal" />
+    <bpmn:userTask id="adopt_animal" name="Tier adoptieren">
+      <bpmn:incoming>Flow_0yjyp6n</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bpvqoc</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1o7gji4">
+      <bpmn:incoming>Flow_1bpvqoc</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1bpvqoc" sourceRef="adopt_animal" targetRef="Event_1o7gji4" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0kigjd8">
+      <bpmndi:BPMNShape id="Participant_1botzud_di" bpmnElement="Participant_1botzud" isHorizontal="true">
+        <dc:Bounds x="129" y="52" width="681" height="308" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0zjban5_di" bpmnElement="Flow_0zjban5">
+        <di:waypoint x="228" y="177" />
+        <di:waypoint x="285" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ok4zd5_di" bpmnElement="Flow_0ok4zd5">
+        <di:waypoint x="335" y="177" />
+        <di:waypoint x="400" y="177" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="355" y="159" width="12" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hqg7e2_di" bpmnElement="Flow_0hqg7e2">
+        <di:waypoint x="310" y="202" />
+        <di:waypoint x="310" y="290" />
+        <di:waypoint x="402" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="314" y="243" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yjyp6n_di" bpmnElement="Flow_0yjyp6n">
+        <di:waypoint x="500" y="177" />
+        <di:waypoint x="570" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bpvqoc_di" bpmnElement="Flow_1bpvqoc">
+        <di:waypoint x="670" y="177" />
+        <di:waypoint x="742" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0nta3ea_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="192" y="159" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="177" y="202" width="67" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1b83pdi_di" bpmnElement="Gateway_1b83pdi" isMarkerVisible="true">
+        <dc:Bounds x="285" y="152" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="275" y="114.5" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_041ub7t_di" bpmnElement="Event_041ub7t">
+        <dc:Bounds x="402" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vxpna4_di" bpmnElement="Activity_03jh9ov">
+        <dc:Bounds x="400" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ypqb0y_di" bpmnElement="adopt_animal">
+        <dc:Bounds x="570" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1o7gji4_di" bpmnElement="Event_1o7gji4">
+        <dc:Bounds x="742" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
