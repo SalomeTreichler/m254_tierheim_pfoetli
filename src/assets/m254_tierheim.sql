@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 29. Jan 2022 um 13:51
+-- Erstellungszeit: 30. Jan 2022 um 17:54
 -- Server-Version: 10.1.36-MariaDB
 -- PHP-Version: 7.2.11
 
@@ -40,15 +40,6 @@ CREATE TABLE `animal` (
   `statusId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Daten für Tabelle `animal`
---
-
-INSERT INTO `animal` (`id`, `name`, `species`, `breed`, `arrival`, `comment`, `statusId`) VALUES
-(5, 'Charlie', 'Katze', '', '2022-01-27 16:49:58', 'Frisst alles', 12),
-(6, 'Hoppel', 'Zwergkanninchen', 'Löwenköpfchen', '2022-01-27 16:38:16', 'Sehr bissig und aggressiv', 12),
-(7, 'Honey', 'Hund', '', '2022-01-27 16:38:32', '', 13);
-
 -- --------------------------------------------------------
 
 --
@@ -59,19 +50,6 @@ CREATE TABLE `status` (
   `id` int(11) NOT NULL,
   `status` varchar(255) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Daten für Tabelle `status`
---
-
-INSERT INTO `status` (`id`, `status`) VALUES
-(5, 'CONTACT_OWNER'),
-(7, 'TO_BE_EUTHANISED'),
-(8, 'PICKED_UP'),
-(10, 'ADOPTED'),
-(11, 'EUTHANISED'),
-(12, 'TO_BE_ADOPTED'),
-(13, 'TO_BE_EXAMINED');
 
 --
 -- Indizes der exportierten Tabellen
@@ -98,13 +76,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT für Tabelle `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints der exportierten Tabellen
