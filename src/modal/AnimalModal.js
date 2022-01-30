@@ -75,6 +75,10 @@ const statuses = [
         value: 'EUTHANISED',
         label: 'Eingeschläfert',
     },
+    {
+        value: 'TO_BE_PICKED_UP',
+        label: 'Wird abgeholt',
+    },
 ];
 
 export default function AnimalModal(props) {

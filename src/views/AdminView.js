@@ -190,13 +190,15 @@ const AdminView = () => {
         setEdit(false);
     }
 
-    const handleCallOwner = (event) => {
-        event.stopPropagation()
+    const handleCallOwner = (event, animal) => {
+        event.stopPropagation();
+        setSelectedAnimal(animal);
         setOpenPhoneModal(true)
     }
 
     const handleClosePhoneModal = () => {
         setOpenPhoneModal(false);
+        setSelectedAnimal(null);
     }
 
     // UseEffects
@@ -264,7 +266,7 @@ const AdminView = () => {
                                                     <TableCell align="left">{status(row.status)}</TableCell>
                                                     {row.status === "CONTACT_OWNER" ?
                                                         <TableCell align="right">
-                                                            <CallIcon className={classes.hover} onClick={(event) => handleCallOwner(event)}/>
+                                                            <CallIcon className={classes.hover} onClick={(event) => handleCallOwner(event, row)}/>
                                                         </TableCell>
                                                         : <TableCell align="right"/>
                                                     }
