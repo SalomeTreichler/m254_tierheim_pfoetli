@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 30. Jan 2022 um 17:54
+-- Erstellungszeit: 30. Jan 2022 um 22:06
 -- Server-Version: 10.1.36-MariaDB
 -- PHP-Version: 7.2.11
 
@@ -52,6 +52,20 @@ CREATE TABLE `status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
+-- Daten für Tabelle `status`
+--
+
+INSERT INTO `status` (`id`, `status`) VALUES
+(5, 'CONTACT_OWNER'),
+(7, 'TO_BE_EUTHANISED'),
+(8, 'PICKED_UP'),
+(10, 'ADOPTED'),
+(11, 'EUTHANISED'),
+(12, 'TO_BE_ADOPTED'),
+(13, 'TO_BE_EXAMINED'),
+(14, 'TO_BE_PICKED_UP');
+
+--
 -- Indizes der exportierten Tabellen
 --
 
@@ -82,7 +96,7 @@ ALTER TABLE `animal`
 -- AUTO_INCREMENT für Tabelle `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints der exportierten Tabellen
