@@ -71,6 +71,10 @@ const statuses = [
         label: 'Abgeholt',
     },
     {
+        value: 'TO_BE_PICKED_UP',
+        label: 'Wird abgeholt',
+    },
+    {
         value: 'EUTHANISED',
         label: 'Eingeschläfert',
     },
